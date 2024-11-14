@@ -2,8 +2,10 @@ package com.platform.isl_backend.Controller;
 
 import com.platform.isl_backend.Entity.AlphabetSign;
 import com.platform.isl_backend.Entity.NumberSign;
+import com.platform.isl_backend.Entity.WordSign;
 import com.platform.isl_backend.Service.NumberSignService;
 import com.platform.isl_backend.Service.AlphabetSignService;
+import com.platform.isl_backend.Service.WordSignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,9 @@ public class SignController {
     @Autowired
     private NumberSignService numberSignService;
 
+    @Autowired
+    private WordSignService wordSignService;
+
     // Get a specific alphabet sign by value (e.g., 'A')
     @GetMapping("/alphabet/{value}")
     public ResponseEntity<AlphabetSign> getAlphabetSignByValue(@PathVariable String value) {
@@ -37,4 +42,13 @@ public class SignController {
         return sign.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    //Get a specific word sign video by value
+    @GetMapping("/words/{value}")
+    public ResponseEntity<WordSign> getWordSignByValue(@PathVariable String value){
+        Optional<WordSign> sign= wordSignService.getWordSignByValue(value);
+        return sign.map((ResponseEntity::ok))
+                .orElseGet(()-> ResponseEntity.notFound().build());
+    }
+
 }
