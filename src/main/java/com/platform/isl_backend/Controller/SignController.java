@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -49,7 +50,7 @@ public class SignController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    //Get a specific word sign video by value
+    // Get word sign (video and image) by value
     @GetMapping("/words/{value}")
     public ResponseEntity<WordSign> getWordSignByValue(@PathVariable String value) {
         Optional<WordSign> sign = wordSignService.getWordSignByValue(value);
@@ -57,6 +58,16 @@ public class SignController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
+    //to fetch words starting with a specific alphabet and sort them alphabetically
+    @GetMapping("/words/alphabet/{alphabet}")
+    public ResponseEntity<List<WordSign>> getWordsByAlphabet(@PathVariable String alphabet) {
+        List<WordSign> words = wordSignService.getWordsStartingWith(alphabet);
+        if (words.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(words);
+    }
 
 
 }

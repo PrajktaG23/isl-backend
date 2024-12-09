@@ -21,4 +21,7 @@ public class WordSign {
 
     @Column(name = "video_path", nullable = false)
     private String videoPath;  // Path to video
+
+    @Column(name = "image_path")
+    private String imagePath;  // Path to image file (nullable)
 }
