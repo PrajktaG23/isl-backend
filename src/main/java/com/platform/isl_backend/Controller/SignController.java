@@ -1,8 +1,10 @@
 package com.platform.isl_backend.Controller;
 
 import com.platform.isl_backend.Entity.AlphabetSign;
+import com.platform.isl_backend.Entity.Feedback;
 import com.platform.isl_backend.Entity.NumberSign;
 import com.platform.isl_backend.Entity.WordSign;
+import com.platform.isl_backend.Service.FeedbackService;
 import com.platform.isl_backend.Service.NumberSignService;
 import com.platform.isl_backend.Service.AlphabetSignService;
 import com.platform.isl_backend.Service.WordSignService;
@@ -11,10 +13,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,6 +32,9 @@ public class SignController {
 
     @Autowired
     private WordSignService wordSignService;
+
+    @Autowired
+    private FeedbackService feedbackService;
 
     // Get a specific alphabet sign by value (e.g., 'A')
     @GetMapping("/alphabet/{value}")
@@ -67,6 +69,12 @@ public class SignController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(words);
+    }
+
+    @PostMapping("/submit")
+    public String submitFeedback(@RequestBody Feedback feedback) {
+        feedbackService.saveFeedback(feedback);
+        return "Feedback submitted successfully!";
     }
 
 
