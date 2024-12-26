@@ -1,10 +1,8 @@
 package com.platform.isl_backend.Controller;
 
 import com.platform.isl_backend.Entity.AlphabetSign;
-import com.platform.isl_backend.Entity.Feedback;
 import com.platform.isl_backend.Entity.NumberSign;
 import com.platform.isl_backend.Entity.WordSign;
-import com.platform.isl_backend.Service.FeedbackService;
 import com.platform.isl_backend.Service.NumberSignService;
 import com.platform.isl_backend.Service.AlphabetSignService;
 import com.platform.isl_backend.Service.WordSignService;
@@ -33,8 +31,6 @@ public class SignController {
     @Autowired
     private WordSignService wordSignService;
 
-    @Autowired
-    private FeedbackService feedbackService;
 
     // Get a specific alphabet sign by value (e.g., 'A')
     @GetMapping("/alphabet/{value}")
@@ -70,12 +66,5 @@ public class SignController {
         }
         return ResponseEntity.ok(words);
     }
-
-    @PostMapping("/submit")
-    public String submitFeedback(@RequestBody Feedback feedback) {
-        feedbackService.saveFeedback(feedback);
-        return "Feedback submitted successfully!";
-    }
-
 
 }

@@ -20,4 +20,13 @@ public class EmailService {
 
         mailSender.send(email);
     }
+
+    public void sendWelcomeEmail(String toEmail,String username) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject("Welcome to the ISLMate Platform!");
+        message.setText("Hi " + username + ",\n\nThank you for registering.\nWe're excited to have you with us and start your Indian Sign Language Journey with us!!\n\nBest regards,\nISLMate Team");
+
+        mailSender.send(message);
+    }
 }

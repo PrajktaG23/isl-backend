@@ -17,6 +17,7 @@ public class Feedback {
     private Long id;
     private String username; // optional: to identify the user providing feedback
     private String userType; // "student" or "guardian"
+    private String formType; // "learning" or "assessment"
     private String question1;
     private String question2;
     private String question3;

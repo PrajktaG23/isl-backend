@@ -20,6 +20,9 @@ public class FeedbackService {
     public void saveFeedback(Feedback feedback) {
         // Set the submission timestamp
         feedback.setSubmittedAt(LocalDateTime.now());
+        if (feedback.getSuggestions() == null) {
+            feedback.setSuggestions("No suggestions provided.");
+        }
         // Save to the database
         feedbackRepository.save(feedback);
         // Send the feedback as an email
@@ -35,12 +38,13 @@ public class FeedbackService {
     }
 
     private String buildEmailBody(Feedback feedback) {
-        return "User Type: " + feedback.getUserType() + "\n" +
-                "Question 1: " + feedback.getQuestion1() + "\n" +
-                "Question 2: " + feedback.getQuestion2() + "\n" +
-                "Question 3: " + feedback.getQuestion3() + "\n" +
-                "Question 4: " + feedback.getQuestion4() + "\n" +
-                "Question 5: " + feedback.getQuestion5() + "\n" +
+        return "Form Type: " + feedback.getFormType() + "\n" +
+                "User Type: " + feedback.getUserType() + "\n" +
+                "Learning Experience: " + feedback.getQuestion1() + "\n" +
+                "Platform Usefulness: " + feedback.getQuestion2() + "\n" +
+                "Platform Interactivity: " + feedback.getQuestion3() + "\n" +
+                "Learning Outcome: " + feedback.getQuestion4() + "\n" +
+                "Recommendation: " + feedback.getQuestion5() + "\n" +
                 "Suggestions: " + feedback.getSuggestions() + "\n" +
                 "Submitted At: " + feedback.getSubmittedAt();
     }
