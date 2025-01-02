@@ -66,4 +66,12 @@ public class UserServiceImpl implements UserService {
 
         throw new BadCredentialsException("Invalid username or password.");
     }
+
+    @Override
+    public void deleteUserByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        userRepository.delete(user);
+    }
+
 }

@@ -11,6 +11,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 public class JwtTokenValidator extends OncePerRequestFilter {
+
+    private final String SECRET_KEY = "bcoFgHHyhwh0w58HpECLdpxviXjy3j/Z1mmVvDn8nTE=";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -21,7 +24,7 @@ public class JwtTokenValidator extends OncePerRequestFilter {
             String token = authorizationHeader.substring(7);
             try {
                 Claims claims = Jwts.parserBuilder()
-                        .setSigningKey("your-secret-key".getBytes()) // Replace with environment variable
+                        .setSigningKey(SECRET_KEY.getBytes()) // Replace with environment variable
                         .build()
                         .parseClaimsJws(token)
                         .getBody();

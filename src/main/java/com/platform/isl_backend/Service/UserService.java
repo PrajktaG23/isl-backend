@@ -9,4 +9,7 @@ public interface UserService {
     boolean existsByEmail(String email);
 
     String authenticateUser(String username, String rawPassword);
+
+    void deleteUserByUsername(String username);
+
 }

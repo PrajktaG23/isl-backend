@@ -9,14 +9,14 @@ import java.util.Date;
 @Component
 public class JwtTokenGenerator {
 
-    private final String SECRET_KEY = "your-secret-key"; // Replace with environment variable in production
+    private final String SECRET_KEY = "bcoFgHHyhwh0w58HpECLdpxviXjy3j/Z1mmVvDn8nTE="; // Replace with environment variable in production
 
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 hour expiry
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes())
                 .compact();
     }
 }
